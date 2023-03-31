@@ -51,6 +51,7 @@ class Plugin_Name_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$Campaign_Public_Module = new Campaign_Public_Module($this->plugin_name, $this->version);
 	}
 
 	/**
