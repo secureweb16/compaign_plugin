@@ -53,7 +53,7 @@ class Plugin_Name_Public {
 		$this->version = $version;
 		$class_file = plugin_dir_path( dirname( __FILE__ ) ) . 'public/modules/Campaign_Public_Module.php';
 		require_once $class_file;
-		//$Campaign_Public_Module = new Campaign_Public_Module($this->plugin_name, $this->version);
+		$Campaign_Public_Module = new Campaign_Public_Module($this->plugin_name, $this->version);
 	}
 
 	/**
