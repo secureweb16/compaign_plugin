@@ -25,7 +25,7 @@
  * @since      1.0.0
  * @package    Plugin_Name
  * @subpackage Plugin_Name/includes
- * @author     Your Name <email@example.com>
+ * @author     Your Name secureweb16@gmail.com
  */
 class Plugin_Name {
 
