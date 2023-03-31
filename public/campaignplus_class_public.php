@@ -51,6 +51,7 @@ class Plugin_Name_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
 	}
 
@@ -99,5 +100,28 @@ class Plugin_Name_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/campaignplus_public.js', array( 'jquery' ), $this->version, false );
 
 	}
+
+
+		public function admin_menu(){
+		
+			add_menu_page( "Dashboard", "Armaturenbrett","manage_options","campaign_plus_menus", array( $this, 'CampaignPlus_Dashboard' ), "dashicons-businessperson", "6");
+			add_submenu_page( "campaign_plus_menus","Kontakte", "Kontakte", "manage_options", "campaign_plus_contact", array( $this, 'CampaignPlus_ContactSync' ));
+			add_submenu_page( "campaign_plus_menus", "produkte_bestellungen", "Produkte & Bestellungen", "manage_options", "campaign_plus_products_orders", array( $this, 'CampaignPlus_ProductsOrderSync' ));
+		}
+
+
+		public function CampaignPlus_Dashboard(){
+			echo "Dashboard called";
+
+		}
+
+		public function CampaignPlus_ContactSync(){
+			echo "function_1 called";
+
+		}
+
+		public function CampaignPlus_ProductsOrderSync(){
+			echo "function_3 called";
+		}
 
 }
