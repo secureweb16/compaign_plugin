@@ -35,7 +35,7 @@ class Plugin_Name {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Plugin_Name_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Compaign_plus_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -86,8 +86,8 @@ class Plugin_Name {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Plugin_Name_Loader. Orchestrates the hooks of the plugin.
-	 * - Plugin_Name_i18n. Defines internationalization functionality.
+	 * - Compaign_plus_Loader. Orchestrates the hooks of the plugin.
+	 * - Compaign_Plus_i18n. Defines internationalization functionality.
 	 * - Plugin_Name_Admin. Defines all hooks for the admin area.
 	 * - Plugin_Name_Public. Defines all hooks for the public side of the site.
 	 *
@@ -122,14 +122,18 @@ class Plugin_Name {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/campaignplus_class_public.php'; 
 
-		$this->loader = new Plugin_Name_Loader();
+		//require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/ajax/admin_ajax.php';
+
+		//require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/services/Campaign_Plus_Api.php';
+
+		$this->loader = new Compaign_plus_Loader(); 
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Plugin_Name_i18n class in order to set the domain and to register the hook
+	 * Uses the Compaign_Plus_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -137,7 +141,7 @@ class Plugin_Name {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Plugin_Name_i18n();
+		$plugin_i18n = new Compaign_Plus_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -151,9 +155,7 @@ class Plugin_Name {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
 		$plugin_admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
-
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
@@ -167,14 +169,13 @@ class Plugin_Name {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-
 		$plugin_public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
-
+		$this->loader->add_action( 'wp_footer', $plugin_public, 'wp_footer_hook' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 	}
-
+    
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
@@ -199,7 +200,7 @@ class Plugin_Name {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Plugin_Name_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Compaign_plus_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

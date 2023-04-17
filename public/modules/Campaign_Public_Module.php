@@ -40,6 +40,7 @@
  */
 
 class Campaign_Public_Module {
+	use Campaign_Plus_Helper;
 
 	/**
 
@@ -88,12 +89,11 @@ class Campaign_Public_Module {
 	 */ 	
 
 	public function __construct($plugin_name, $version) {
-
 		$this->plugin_name = $plugin_name;
 
 		$this->version = $version;
 
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		    add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
 	}
 
@@ -101,21 +101,26 @@ class Campaign_Public_Module {
         add_menu_page( "Dashboard", "Armaturenbrett","manage_options","campaign_plus_menus", array( $this, 'CampaignPlus_Dashboard' ), "dashicons-businessperson", "6");
         add_submenu_page( "campaign_plus_menus","Kontakte", "Kontakte", "manage_options", "campaign_plus_contact", array( $this, 'CampaignPlus_ContactSync' ));
         add_submenu_page( "campaign_plus_menus", "produkte_bestellungen", "Produkte & Bestellungen", "manage_options", "campaign_plus_products_orders", array( $this, 'CampaignPlus_ProductsOrderSync' ));
-    }
+		add_submenu_page( "campaign_plus_menus","Settings", "Settings", "manage_options", "campaign_plus_settings", array( $this, 'CampaignPlus_Settings' ));
+	}
 
-
+ 
     public function CampaignPlus_Dashboard(){
-        echo "Dashboard called";
-
+		require_once Campaign_Plus_BASEPATH . 'public/templates/dashboard.php'; 
     }
+	
 
     public function CampaignPlus_ContactSync(){
-        echo "function_1 called";
-
+		require_once Campaign_Plus_BASEPATH . 'public/templates/contact_sync.php'; 
     }
 
     public function CampaignPlus_ProductsOrderSync(){
-        echo "function_3 called";
+		require_once Campaign_Plus_BASEPATH . 'public/templates/product_order_sync.php'; 
+    }
+
+
+	public function CampaignPlus_Settings(){
+		require_once Campaign_Plus_BASEPATH . 'public/templates/settings.php'; 
     }
 
 

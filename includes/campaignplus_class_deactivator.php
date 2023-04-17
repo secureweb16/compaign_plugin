@@ -20,7 +20,7 @@
  * @subpackage Plugin_Name/includes
  * @author     Your Name <email@example.com>
  */
-class Plugin_Name_Deactivator {
+class Compaign_Plus_Deactivator { 
 
 	/**
 	 * Short Description. (use period)
@@ -30,7 +30,14 @@ class Plugin_Name_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
+		global $wpdb;
 
+		try{ 
+			update_option( "plugin_status_campaign_plus", 'deactivate' );
+			$wpdb->query( "DROP TABLE IF EXISTS campaign_plus_customers" );
+        } catch( Exception $e ){
+            echo "some error" . $e->getMessage();
+        } 
 	}
 
 }
